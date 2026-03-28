@@ -30,12 +30,17 @@ class Trainer:
             # This is an important step in the training process, as it allows us to leverage the computational power of the device and efficiently train our model on the provided data.
 
             self.optimizer.zero_grad() # this line is used to reset the gradients of the model's parameters before performing backpropagation. By calling self.optimizer.zero_grad(), we can ensure that the gradients from the previous training step do not accumulate and interfere with the current training step. This is important because if we do not reset the gradients, they will be added to the existing gradients, which can lead to incorrect updates of the model's parameters and hinder the training process. By zeroing out the gradients at the beginning of each training step, we can ensure that the optimization process is based solely on the current batch of data and that the model's parameters are updated correctly.
-
+            # FOR DIFFUSION MODEL
+            #pred_noise, noise = model(x)
+            #loss = criterion(pred_noise, noise)
             outputs = self.model(x)# this line is used to pass the input data (x) through the model to obtain the predicted outputs. The model takes the input data and processes it through its layers to generate predictions, which are stored in the variable outputs. These outputs can then be compared to the true labels (y) to calculate performance metrics such as accuracy, which can help us evaluate how well the model is performing on the given data.
             loss = self.criterion(outputs, y)# this line is used to calculate the loss between the model's predictions (outputs) and the true labels (y) using the specified criterion. The criterion is a loss function that measures the discrepancy between the predicted outputs and the true labels, and it is used to guide the optimization process during training. By calculating the loss, we can assess how well our model is performing on the given data and use it to update the model's parameters through backpropagation, ultimately improving its performance over time.
             # FOR GCN 
             # outputs = model(x, adj)
             # loss = criterion(outputs, y)
+            # FOR DIFFUSION MODEL
+            # criterion = nn.MSELoss()
+            # loss = criterion(pred_noise, noise)
             loss.backward()# this line is used to perform backpropagation, which calculates the gradients of the loss with respect to the model's parameters. By calling loss.backward(), we can compute the gradients for all the parameters in the model, which will be used by the optimizer to update the parameters during the optimization step. This is a crucial step in the training process, as it allows us to optimize the model's performance by adjusting its parameters based on the computed gradients.
 
             torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)# this line is used to clip the gradients of the model's parameters to a maximum norm of 1.0. Gradient clipping is a technique used to prevent exploding gradients during training, which can occur when the gradients become too large and cause instability in the optimization process.

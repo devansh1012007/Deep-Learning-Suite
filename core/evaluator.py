@@ -27,4 +27,4 @@ class Evaluator:
             total_acc += accuracy(outputs, y)
 
         return total_acc / len(dataloader)
-    
+# for diffusion model, we will need to change the evaluate method to calculate the MSE loss between the predicted noise and the true noise, instead of calculating accuracy. This is because in diffusion models, we are not directly predicting the class labels, but rather predicting the noise that was added to the input data. Therefore, we need to use a different metric (MSE loss) to evaluate the performance of the model in this context.

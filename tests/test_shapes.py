@@ -1,5 +1,6 @@
 # import necessary libraries and modules later
 import torch
+# import ResNet18, Seq2Seq, ViT, GCN from their respective files later
 
 def test_resnet_shape(): # This test checks if the ResNet18 model produces the correct output shape when given an input tensor of shape (1, 3, 32, 32). 
     # The expected output shape is (1, 10), which corresponds to the number of classes in the output layer.

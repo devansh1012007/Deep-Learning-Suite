@@ -14,3 +14,10 @@ def test_seq2seq(): # This test checks if the Seq2Seq model produces the correct
     out = model(x, y)
 
     assert out.shape == (2, 9, 32)
+
+def test_vit():
+    model = ViT()
+    x = torch.randn(2, 3, 32, 32)
+    y = model(x)
+
+    assert y.shape == (2, 10)

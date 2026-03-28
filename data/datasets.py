@@ -28,3 +28,17 @@ class CIFAR10Dataset(BaseDataset):# this class is a specific implementation of t
             x = self.transform(x)
         return x, y
 # u can change this data set to any dataset you want by just creating a new class that inherits from the BaseDataset class and implements the necessary methods. For example, if you want to work with the MNIST dataset, you can create a new class called MNISTDataset that inherits from BaseDataset and implements the __len__ and __getitem__ methods to load and access the MNIST dataset. This way, you can easily switch between different datasets without having to modify the existing code, making your project more flexible and reusable.
+
+# dataset for GNNs 
+# need to fill in future
+class GraphDataset:
+    def __init__(self):
+        self.x = ...
+        self.adj = ...
+        self.y = ...
+''' Dataset:
+x → node features (N, F)
+adj → adjacency matrix (N, N)
+y → labels (N)
+'''
+

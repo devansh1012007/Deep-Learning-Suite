@@ -13,3 +13,25 @@ def get_device():
     return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
+import yaml
+
+def load_config(path): # load_config is a function that takes in a file path to a YAML configuration file, reads the contents of the file, and returns the configuration as a Python dictionary. This allows you to easily manage and access your experiment configurations in a structured format.
+    with open(path, "r") as f:
+        return yaml.safe_load(f)
+    
+def merge_configs(default, specific): # merge_configs is a function that takes in a default configuration dictionary and a specific configuration dictionary, and 
+    # merges the two dictionaries together. The specific configuration values will override the default values, allowing you to easily customize your experiment 
+    # configurations while still maintaining a base set of default parameters.
+    for key, value in specific.items():
+        if isinstance(value, dict) and key in default:
+            default[key] = merge_configs(default[key], value)
+        else:
+            default[key] = value
+    return default
+
+default = load_config("configs/default.yaml")
+model_cfg = load_config("configs/resnet.yaml")
+
+config = merge_configs(default, model_cfg)
+
+run(config)

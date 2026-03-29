@@ -56,7 +56,13 @@ class Trainer:
         # It takes the training and validation dataloaders, an evaluator for assessing the model's performance, the number of epochs to train for, and a checkpoint path for saving the model's state.
         # The method iterates over the specified number of epochs, calling the train_epoch method to train the model on the training data and then using the evaluator to assess its performance on the validation data. After each epoch, it saves a checkpoint of the model's state using the save_checkpoint function. This allows us to track the model's progress during training and save its state at regular intervals for later use or analysis.
         for epoch in range(epochs):
+            history = {
+                "train_loss": [],
+                "val_acc": []
+            }
 
+            history["train_loss"].append(train_loss)
+            history["val_acc"].append(val_acc)
             for hook in self.hooks: # this loop is used to execute any hooks that are defined in the trainer before the start of each epoch. 
                 #Hooks are a way to execute some code at specific points during the training process, such as at the beginning or end of an epoch. #
                 # By iterating over the self.hooks list and calling the on_epoch_start method for each hook, we can allow users to define custom behavior that should be executed at the start of each epoch, such as logging, adjusting learning rates, or performing any other necessary actions. This provides flexibility and extensibility to the training process, allowing users to customize it according to their specific needs and requirements.
@@ -80,3 +86,4 @@ class Trainer:
                 # By iterating over the self.hooks list and calling the on_epoch_end method for
                 # each hook, we can allow users to define custom behavior that should be executed at the end of each epoch, such as logging, adjusting learning rates, or performing any other necessary actions. This provides flexibility and extensibility to the training process, allowing users to customize it according to their specific needs and requirements.
                 hook.on_epoch_end(self)
+            return history

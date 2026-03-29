@@ -1,0 +1,12 @@
+model:
+  name: gcn
+  in_features: 16
+  hidden_dim: 32
+  num_classes: 3
+
+training:
+  epochs: 100
+
+optimizer:
+  name: adam
+  lr: 0.01

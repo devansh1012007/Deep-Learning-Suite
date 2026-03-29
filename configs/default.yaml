@@ -1,0 +1,26 @@
+experiment_name: base_experiment
+
+device: cuda
+seed: 42
+
+training:
+  epochs: 50
+  batch_size: 128
+
+optimizer:
+  name: sgd
+  lr: 0.1
+  momentum: 0.9
+  weight_decay: 1e-4
+
+scheduler:
+  name: cosine
+  T_max: 50
+
+data:
+  dataset: cifar10
+  num_workers: 2
+
+logging:
+  save_dir: logs/
+  checkpoint_dir: checkpoints/

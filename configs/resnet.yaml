@@ -1,5 +1,10 @@
-batch_size: 128
-epochs: 10
-lr: 0.001
-optimizer: adam
-dataset: cifar10
+model:
+  name: resnet18
+  num_classes: 10
+
+optimizer:
+  name: sgd
+  lr: 0.1
+
+scheduler:
+  name: cosine

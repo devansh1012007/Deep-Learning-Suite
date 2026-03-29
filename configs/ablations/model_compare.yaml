@@ -1,0 +1,6 @@
+experiment: model_compare
+
+models:
+  - resnet18
+  - vit
+  - gcn

@@ -14,7 +14,9 @@ class BaseDataset(Dataset):
 
 
 # if we want  the system to be mopduler such that it workas for any dataset we can create a base dataset class and then create specific dataset classes that inherit from the base class. This way, we can easily add new datasets by simply creating new classes that implement the necessary methods without having to modify the existing code. The base dataset class can provide common functionality and structure, while the specific dataset classes can handle the unique aspects of each dataset. This modular approach allows for greater flexibility and reusability in our codebase.
-class CIFAR10Dataset(BaseDataset):# this class is a specific implementation of the BaseDataset class for the CIFAR-10 dataset. It inherits from the BaseDataset class and provides the necessary implementations for the __len__ and __getitem__ methods to work with the CIFAR-10 dataset. The CIFAR10Dataset class allows you to easily load and access the CIFAR-10 dataset, which consists of 60,000 32x32 color images in 10 classes, with 6,000 images per class. By using this class, you can efficiently work with the CIFAR-10 dataset in your machine learning projects.
+class CIFAR10Dataset(BaseDataset):# this class is a specific implementation of the BaseDataset class for the CIFAR-10 dataset. 
+    #It inherits from the BaseDataset class and provides the necessary implementations for the __len__ and __getitem__ methods to work with the CIFAR-10 dataset. The CIFAR10Dataset class allows you to easily load and access the CIFAR-10 dataset, which consists of 60,000 32x32 color images in 10 classes, with 6,000 images per class. 
+    # By using this class, you can efficiently work with the CIFAR-10 dataset in your machine learning projects.
     def __init__(self, root, train=True, transform=None):
         super().__init__(transform)
         self.dataset = CIFAR10(root=root, train=train, download=True)
@@ -24,7 +26,7 @@ class CIFAR10Dataset(BaseDataset):# this class is a specific implementation of t
 
     def __getitem__(self, idx):
         x, y = self.dataset[idx]
-        if self.transform:
+        if self.transform: # this line checks if a transform function has been provided (i.e., if self.transform is not None). If a transform function is available, it applies the transformation to the input data x. This allows you to perform various data preprocessing steps, such as resizing, cropping, flipping, or normalizing the images, which can help improve the performance of your model by making it more robust to variations in the input data. By using this conditional statement, you can ensure that the transformations are only applied when a valid transform function is provided.
             x = self.transform(x)
         return x, y
 # u can change this data set to any dataset you want by just creating a new class that inherits from the BaseDataset class and implements the necessary methods. For example, if you want to work with the MNIST dataset, you can create a new class called MNISTDataset that inherits from BaseDataset and implements the __len__ and __getitem__ methods to load and access the MNIST dataset. This way, you can easily switch between different datasets without having to modify the existing code, making your project more flexible and reusable.

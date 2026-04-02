@@ -26,10 +26,11 @@ class LSTMCell(nn.Module): # LSTMCell is a single time step of an LSTM, while th
     
     def forward_sequence(self, x): # This method processes an entire sequence of inputs. 
         # It initializes the hidden and cell states to zeros and iterates through the sequence, updating the states at each time step.
-        h, c = init_states
+        h, c = init_states = (torch.zeros(x.size(0), self.hidden_size, device=x.device), # The hidden and cell states are initialized to zeros. The batch size is determined by the first dimension of the input x, and the hidden size is determined by the LSTMCell's configuration.
+                                  torch.zeros(x.size(0), self.hidden_size, device=x.device))
 
         outputs = []
-
+        seq_len = x.size(1) # The sequence length is determined by the second dimension of the input x. We loop through each time step in the sequence, updating the hidden and cell states using the forward method defined above.
         for t in range(seq_len):
             h, c = self.cell(x[:, t, :], h, c)
             outputs.append(h)

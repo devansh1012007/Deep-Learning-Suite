@@ -8,6 +8,7 @@ from core.evaluator import Evaluator
 from models.resnet.resnet18 import ResNet18
 import torch.nn as nn
 import torch.optim as optim
+import torch
 
 # ResNet solves: Vanishing gradient problem
 
@@ -24,13 +25,19 @@ def run():
     model = ResNet18(num_classes=10).to(device)  # Phase 2
     model.to(device)
 
-    optimizer = optim.SGD(
-    model.parameters(),
-    lr=0.1,
-    momentum=0.9,
-    weight_decay=1e-4
-    )
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.CrossEntropyLoss() # CrossEntropyLoss is a commonly used loss function for multi-class classification problems. 
+    # it helps to measure the difference between the predicted class probabilities and the true class labels. 
+    # It combines a softmax activation function with a negative log-likelihood loss, which makes it suitable for training classification models.
+    # (a negative log-likelihood loss means that it calculates the negative logarithm of the predicted probabilities for the true class labels, which encourages the model to assign higher probabilities to the correct classes and lower probabilities to the incorrect classes.)
+    # It combines LogSoftmax and NLLLoss in one single class. 
+    
+    optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9, weight_decay=5e-4)# SGD (Stochastic Gradient Descent) is an optimization algorithm used to minimize the loss function during training.
+    # It updates the model's parameters based on the gradients of the loss with respect to the parameters.
+    # The learning rate (lr) determines the step size at each iteration while moving toward a minimum
+    # Momentum helps to accelerate the optimization process by adding a fraction of the previous update to the current update, which can help to navigate through local minima and improve convergence.
+    # Weight decay is a regularization technique that adds a penalty to the loss function based on the magnitude of the model's parameters, which helps to prevent overfitting by encouraging the model to learn simpler patterns in the data.
+    
+
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=100)
     trainer = Trainer(
         model=model,
